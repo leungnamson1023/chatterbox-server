@@ -1,0 +1,17 @@
+.jumbotron{
+  background-color: rgba(0, 0, 0, 0.3);
+  
+  
+}
+
+.jumbotron p{
+  text-align: center;
+  margin-top: 5%;
+}
+
+.jumbotron h2{
+  
+  position: relative;
+  
+  
+}

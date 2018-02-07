@@ -59,20 +59,23 @@ describe('Node Server Request Listener Function', function() {
   it('Should accept posts to /classes/room', function() {
     var stubMsg = {
       username: 'Jono',
-      message: 'Do my bidding!'
+      message: 'Do my bidding!',
+      roomname: 'lobby'
     };
     var req = new stubs.request('/classes/messages', 'POST', stubMsg);
     var res = new stubs.response();
-
+    
     handler.requestHandler(req, res);
-
+    
     // Expect 201 Created response status
     expect(res._responseCode).to.equal(201);
-
-    // Testing for a newline isn't a valid test
-    // TODO: Replace with with a valid test
-    // expect(res._data).to.equal(JSON.stringify('\n'));
-    expect(res._ended).to.equal(true);
+    var Yes;
+    JSON.parse(res._data).results.forEach(function(item) {
+      if (item.username === 'Jono') {
+        Yes = (item.roomname === 'lobby');
+      }
+    });
+    expect(Yes).to.equal(true);
   });
 
   it('Should respond with messages that were previously posted', function() {
@@ -114,6 +117,19 @@ describe('Node Server Request Listener Function', function() {
       function() {
         expect(res._responseCode).to.equal(404);
       });
+  });
+  
+  it('Should specify an OPTIONS method condition', function(){
+    var req = new stubs.request('/classes/messages', 'OPTIONS');
+    var res = new stubs.response();
+    handler.requestHandler(req, res);
+    expect(res._responseCode).to.equal(200);
+  });
+  it('Should call JSON.stringify() at least once', function(){
+    var req = new stubs.request('/classes/messages', 'GET');
+    var res = new stubs.response();
+    handler.requestHandler(req, res);
+    expect(typeof JSON.stringify(res)).to.equal('string');
   });
 
 });

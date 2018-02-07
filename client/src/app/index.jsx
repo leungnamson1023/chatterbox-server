@@ -1,16 +1,18 @@
 import React from 'react';
-import Bootstrap from '../../node_modules/bootstrap/dist/css/bootstrap.css';
+import Bootstrap from '../../../node_modules/bootstrap/dist/css/bootstrap.css';
 import {render} from 'react-dom';
 import Login from './Components/Login.jsx';
 import Composer from './Components/Composer.jsx';
 import Chatbox from './Components/Chatbox.jsx';
 import exampleData from './data/exampleData.js';
-import{getData, sendData} from './data/dataAccess.js';
-import {jumbotron} from 'react-bootstrap'
+import {getData, sendData} from './data/dataAccess.js';
+import {jumbotron} from 'react-bootstrap';
 import $ from 'jquery';
+
+
 class App extends React.Component {
   constructor (props) {
-    super(props)
+    super(props);
     this.state = {
       username: '',
       message: '',
@@ -18,7 +20,7 @@ class App extends React.Component {
       roomname: 'lobby',
       data: this.props.data
       
-    }
+    };
     this.loginSubmit = this.loginSubmit.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
     this.invoke = this.invoke.bind(this);
@@ -27,7 +29,7 @@ class App extends React.Component {
     this.messageSubmit = this.messageSubmit.bind(this);
   }
 /*------------------RENDER------------------ */
-  componentDidMount(){
+  componentDidMount() {
     this.invoke();
   }
 
@@ -52,9 +54,9 @@ class App extends React.Component {
 
   }
   
-  getMessageData(data){
+  getMessageData(data) {
     
-    this.setState({data: data})
+    this.setState({data: data.reverse()});
   }
 
   invoke() {
@@ -73,7 +75,7 @@ class App extends React.Component {
     return (
       <div>
         <div>
-          <Login  onInputChange={this.onInputChange} loginSubmit={this.loginSubmit}/>
+          <Login onInputChange={this.onInputChange} loginSubmit={this.loginSubmit}/>
         </div>
         <div>
           <Composer onMessageChange={this.onMessageChange} messageSubmit={this.messageSubmit} username={this.state.username}/>
@@ -89,3 +91,4 @@ class App extends React.Component {
 
 
 render(<App data={exampleData}/>, document.getElementById('app'));
+exports.app = App;

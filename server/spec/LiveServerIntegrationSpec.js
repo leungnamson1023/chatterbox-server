@@ -1,6 +1,6 @@
-var request = require('request');
-var expect = require('chai').expect;
-const chai = require('chai'), spies = require('chai-spies');
+const request = require('request');
+const expect = require('chai').expect;
+
 // const app = require('../../../client/app/index.jsx');
 
 

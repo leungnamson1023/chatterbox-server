@@ -35,7 +35,7 @@ var requestHandler = function(request, response) {
 
   if (request.method === 'OPTIONS') {
     response.writeHead(statusCode, headers);
-    response.end();
+    response.end({url: request.url, feedback: 'Stop using options on a local host'});
 
   } else if (request.method === 'GET' && request.url === '/classes/messages') {
     response.writeHead(statusCode, headers);

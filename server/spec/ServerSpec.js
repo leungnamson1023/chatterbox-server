@@ -90,7 +90,7 @@ describe('Node Server Request Listener Function', function() {
 
     expect(res._responseCode).to.equal(201);
 
-      // Now if we request the log for that room the message we posted should be there:
+
     req = new stubs.request('/classes/messages', 'GET');
     res = new stubs.response();
 
@@ -119,17 +119,27 @@ describe('Node Server Request Listener Function', function() {
       });
   });
   
-  it('Should specify an OPTIONS method condition', function(){
+  it('Should specify an OPTIONS method condition', function() {
     var req = new stubs.request('/classes/messages', 'OPTIONS');
     var res = new stubs.response();
     handler.requestHandler(req, res);
     expect(res._responseCode).to.equal(200);
   });
-  it('Should call JSON.stringify() at least once', function(){
+  it('Should call JSON.stringify() at least once', function() {
     var req = new stubs.request('/classes/messages', 'GET');
     var res = new stubs.response();
     handler.requestHandler(req, res);
     expect(typeof JSON.stringify(res)).to.equal('string');
   });
+  it('Should return information along with an OPTIONS call', function() {
+    var req = new stubs.request('/classes/messages', 'OPTIONS');
+    var res = new stubs.response();
+    
+    handler.requestHandler(req, res);
+    expect(res._responseCode).to.equal(200);
+    expect(res._data['feedback']).to.equal('Stop using options on a local host');
+   
+  });
 
+ 
 });

@@ -67,7 +67,6 @@ describe('server', function() {
       // Now if we request the log, that message we posted should be there:
       request('http://127.0.0.1:3000/classes/messages', function(error, response, body) {
         var messages = JSON.parse(body).results;
-        console.log(messages, 'tttttttttt');
         expect(messages[0].username).to.equal('Jono');
         expect(messages[0].message).to.equal('Do my bidding!');
         done();
@@ -88,22 +87,14 @@ describe('server', function() {
       done();
     });
   });
+  
+  it('Should have a correct content type', function(done) {
+    request('http://127.0.0.1:3000/classes/messages', function(error, response, body) {
+      expect(response.headers['content-type']).to.exist;
+      done();
+    });
+  });
 
-
-  // it('Should re-render the page when new data is submitted to the server', function(done) {
-  //   request('http://127.0.0.1:3000/classes/messages', function(error, response, body) {
-  //     expect(/*an invokation of render from the App class in index.jsx to be equal to an invoked function)*/);
-  //     done();
-  //   });
-  // });
-
-  // it('Should retain the information that was entered when the page refresh/reloads', function(done) {
-  //   request('http://127.0.0.1:3000/classes/messages', function(error, response, body) { // 
-  //     /*we can check whether the length of the results array is equal to it being greater than 1?? */
-  //     expect(app.invoke()).to.have.been.called();
-  //     done();
-  //   });
-  // });
 
 
 });
